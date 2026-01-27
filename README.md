@@ -25,16 +25,6 @@ This project focuses on writing clean validation logic, reusable helper function
 
 ---
 
-## 📂 Project Structure
-
-form-validation/
-│
-├── index.html
-├── styles.css
-├── script.js
-└── README.md
-
----
 
 ## ⚙️ How Validation Works
 
