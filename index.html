@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation-Registration Form</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 id="heading1">Registration Form</h1>
+    <main>
+      <form action="#">
+        <div class="container">
+          <label for="fullName">Full name</label>
+          <input
+            type="text"
+            id="fullName"
+            placeholder="Enter your full name"
+            aria-required="true"
+            aria-describedby="fullNameErr"
+            required
+          />
+          <div id="fullNameErr" role="alert">Full name is required!</div>
+        </div>
+
+        <div class="container">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter email address"
+            aria-required="true"
+            aria-describedby="emailError"
+            required
+          />
+          <div id="emailError" role="alert">Email Address is required!</div>
+        </div>
+
+        <div class="container">
+          <fieldset
+            id="gender"
+            aria-required="true"
+            aria-describedby="genderError"
+          >
+            <legend>Gender</legend>
+            <label for="male" class="genderRadioBtn"
+              ><input
+                type="radio"
+                name="gender"
+                value="male"
+                id="male"
+              />Male</label
+            >
+            <label for="female" class="genderRadioBtn"
+              ><input
+                type="radio"
+                name="gender"
+                value="female"
+                id="female"
+              />Female</label
+            >
+            <label for="other" class="genderRadioBtn"
+              ><input
+                type="radio"
+                name="gender"
+                value="other"
+                id="other"
+              />Other</label
+            >
+          </fieldset>
+          <div id="genderError" role="alert">Select an option, required</div>
+        </div>
+
+        <div class="container">
+          <fieldset
+            id="skills"
+            aria-required="true"
+            aria-describedby="skillsErr"
+          >
+            <legend>Skills</legend>
+            <label for="C" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="C"
+                value="C"
+                class="skillsInput"
+              />C</label
+            >
+            <label for="c++" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="c++"
+                value="c++"
+                class="skillsInput"
+              />C++</label
+            >
+            <label for="html" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="html"
+                value="html"
+                class="skillsInput"
+              />HTML</label
+            >
+            <label for="css" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="css"
+                value="css"
+                class="skillsInput"
+              />CSS</label
+            >
+            <label for="js" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="js"
+                value="js"
+                class="skillsInput"
+              />JavaScript</label
+            >
+            <label for="node" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="node"
+                value="node"
+                class="skillsInput"
+              />Node.js</label
+            >
+            <label for="express" class="checkboxLabel">
+              <input
+                type="checkbox"
+                name="express"
+                value="express"
+                class="skillsInput"
+              />Express.js</label
+            >
+            <label for="mongoDB" class="checkboxLabel">
+              <input
+                type="checkbox"
+                name="mongoDB"
+                value="mongoDB"
+                class="skillsInput"
+              />MongoDB
+            </label>
+
+            <label for="mysql" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="mysql"
+                value="mysql"
+                class="skillsInput"
+              />MySQL</label
+            >
+
+            <label for="aws" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="aws"
+                value="aws"
+                class="skillsInput"
+              />AWS</label
+            >
+
+            <label for="python" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="python"
+                value="python"
+                class="skillsInput"
+              />Python</label
+            >
+
+            <label for="docker" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="docker"
+                value="docker"
+                class="skillsInput"
+              />Docker</label
+            >
+
+            <label for="other" class="checkboxLabel"
+              ><input
+                type="checkbox"
+                name="other"
+                value="other"
+                class="skillsInput"
+              />Other</label
+            >
+          </fieldset>
+          <div id="skillsErr" role="alert">At least one skill is required</div>
+        </div>
+
+        <div class="container">
+          <label for="jobRole">Job Role</label>
+          <select
+            name="role"
+            id="jobRole"
+            aria-required="true"
+            required
+            aria-describedby="jobRoleErr"
+          >
+            <option value="" selected disabled>Select Job Role</option>
+            <option value="frontend">Frontend</option>
+            <option value="backend">Backend</option>
+            <option value="uiux">UI/UX Designer</option>
+            <option value="devops">DevOps</option>
+            <option value="aiMl">AI/ML</option>
+            <option value="other">Other</option>
+          </select>
+          <div id="jobRoleErr" role="alert">Job role is required field</div>
+        </div>
+
+        <div id="otherRole">
+          <textarea
+            name="role"
+            id="otherJobRole"
+            placeholder="Please enter the Role name and briefly describe the role details"
+            aria-required="true"
+            aria-describedby="otherRoleErr"
+          ></textarea>
+          <div id="otherRoleErr" role="alert"></div>
+        </div>
+
+        <div class="container">
+          <label for="dob">Date of Birth</label>
+          <input
+            type="date"
+            name="dob"
+            id="dob"
+            aria-required="true"
+            aria-describedby="dobErr"
+            max="2006-09-01"
+            required
+          />
+          <div id="dobErr" role="alert">Date of Birth is required!</div>
+        </div>
+
+        <div class="container">
+          <label for="resume">Please upload Resume</label>
+          <p id="resumeP">
+            (Only PDF or DocX format allowed and size limit is 1MB)
+          </p>
+          <input
+            type="file"
+            accept=".pdf,.doc,.docx"
+            name="resume"
+            id="resume"
+            aria-required="true"
+            required
+            aria-describedby="resumeErr"
+          />
+          <div id="resumeErr" role="alert">
+            Please upload Resume in .pdf or .docx format!
+          </div>
+        </div>
+
+        <div class="container">
+          <label for="aboutUser">Why we should hire you?</label>
+          <textarea
+            name="aboutUser"
+            id="aboutUser"
+            placeholder="Tell us about yourself and your achievements here"
+            cols="50"
+            rows="6"
+            maxlength="350"
+            aria-required="true"
+            aria-describedby="aboutUserErr"
+          ></textarea>
+          <div id="aboutUserErr" role="alert">
+            Describe about yourself in less than 200 words!
+          </div>
+        </div>
+
+        <div class="container">
+          <label for="password">Password</label>
+          <div id="passwordContainer">
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              aria-required="true"
+              aria-describedby="passwordErr"
+              required
+            />
+            <img src="show_eye.png" alt="show password" id="showPw" />
+          </div>
+
+          <div id="passwordErr" role="alert">Password is required!</div>
+        </div>
+
+        <div class="container">
+          <label for="confirmPW">Confirm Password</label>
+          <div id="passwordContainer">
+            <input
+              type="password"
+              id="confirmPW"
+              placeholder="Re-enter the password"
+              aria-required="true"
+              aria-describedby="confirmPWErr"
+              required
+            />
+            <img src="show_eye.png" alt="show password" id="showCPw" />
+          </div>
+          <div id="confirmPWErr" role="alert">
+            Confirm Password must match with entered password!
+          </div>
+        </div>
+
+        <div class="container">
+          <button type="submit" id="submit-btn">Submit Form</button>
+        </div>
+      </form>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
