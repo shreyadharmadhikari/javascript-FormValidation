@@ -1,5 +1,3 @@
-const fullNameInput = document.getElementById("fullName");
-
 let errorsObj = {
   fullNameErr: false,
   emailErr: false,
@@ -13,31 +11,36 @@ let errorsObj = {
   confirmPwErr: false,
 };
 
+const setError = (errorMsgEle, inputEle, msg) => {
+  errorMsgEle.innerText = msg;
+  errorMsgEle.style.visibility = "visible";
+  inputEle.style.border = "1px solid #FF4646";
+};
+
+const setSuccess = (errorMsgEle, inputEle) => {
+  errorMsgEle.style.visibility = "hidden";
+  inputEle.style.border = "1px solid #78C841";
+};
+
+const fullNameInput = document.getElementById("fullName");
+
 fullNameInput.addEventListener("blur", (e) => {
   let inputVal = e.target.value;
-  let errorMsg = "";
   let regex = /^[a-zA-Z]+(?:\s+[a-zA-Z]+){0,3}$/;
   let errorMsgEle = document.getElementById("fullNameErr");
   if (inputVal === "") {
-    errorMsg = "Full name is required!";
-    errorMsgEle.innerText = errorMsg;
-    errorMsgEle.style.visibility = "visible";
-    e.target.style.borderColor = "#FF4646";
-    e.target.style.background = "#FFF";
+    setError(errorMsgEle, fullNameInput, "Full name is required!");
     errorsObj.fullNameErr = true;
   } else {
     if (regex.exec(inputVal) !== null) {
-      errorMsg = "";
-      errorMsgEle.style.visibility = "hidden";
-      e.target.style.borderColor = "#78C841";
-      e.target.style.background = "#FFF";
+      setSuccess(errorMsgEle, fullNameInput);
       errorsObj.fullNameErr = false;
     } else {
-      errorMsg = "Only letters and spaces are allowed!";
-      errorMsgEle.innerText = errorMsg;
-      errorMsgEle.style.visibility = "visible";
-      e.target.style.borderColor = "#FF4646";
-      e.target.style.background = "#FFF";
+      setError(
+        errorMsgEle,
+        fullNameInput,
+        "Only letters and spaces are allowed!",
+      );
       errorsObj.fullNameErr = true;
     }
   }
@@ -49,30 +52,18 @@ emailInput.addEventListener("blur", (e) => {
   console.log("listening...");
   let inputVal = e.target.value;
   console.log(inputVal);
-  let errorMsg = "";
   let errorMsgEle = document.getElementById("emailError");
   let regex =
     /^[a-zA-Z0-9]+(?:[\.!#\$%&'\*+\-\/\=\?\^_\{\|\}~]?[a-zA-Z0-9])*@[a-zA-Z0-9]+(?:\.[a-zA-Z]{2,63}){1,5}$/;
   if (inputVal === "") {
-    errorMsg = "Email field is required!";
-    errorMsgEle.innerText = errorMsg;
-    errorMsgEle.style.visibility = "visible";
-    e.target.style.borderColor = "#FF4646";
-    e.target.style.background = "#FFF";
+    setError(errorMsgEle, emailInput, "Email field is required!");
     errorsObj.emailErr = true;
   } else {
     if (regex.exec(inputVal) !== null) {
-      errorMsg = "";
-      errorMsgEle.style.visibility = "hidden";
-      e.target.style.borderColor = "#78C841";
-      e.target.style.background = "#FFF";
+      setSuccess(errorMsgEle, emailInput);
       errorsObj.emailErr = false;
     } else {
-      errorMsg = "Email format is invalid!";
-      errorMsgEle.innerText = errorMsg;
-      errorMsgEle.style.visibility = "visible";
-      e.target.style.borderColor = "#FF4646";
-      e.target.style.background = "#FFF";
+      setError(errorMsgEle, emailInput, "Email format is invalid!");
       errorsObj.emailErr = true;
     }
   }
@@ -83,15 +74,11 @@ const genderEle = document.getElementById("gender");
 genderEle.addEventListener("click", (e) => {
   let genderVal = e.target.value;
   const genderErr = document.getElementById("genderError");
-  if (genderVal === "") {
-    genderErr.innerText = "You must select one option!";
-    genderErr.style.visibility = "visible";
-    genderEle.style.border = "1px solid #FF4646";
+  if (genderVal === "" || genderVal === undefined) {
+    setError(genderErr, genderEle, "You must select one option!");
     errorsObj.genderErr = true;
   } else {
-    genderErr.innerText = "";
-    genderErr.style.visibility = "hidden";
-    genderEle.style.border = "1px solid #78C841";
+    setSuccess(genderErr, genderEle);
     errorsObj.genderErr = false;
   }
 });
@@ -113,13 +100,14 @@ skillInputCheckboxes.forEach((ele) => {
     }
     console.log(checkBox);
     if (checkBox.length === 0) {
-      skillsErrEle.innerText = "Please select atleast one skill to proceed";
-      skillsErrEle.style.visibility = "visible";
-      skillsFieldset.style.border = "1px solid #FF4646";
+      setError(
+        skillsErrEle,
+        skillsFieldset,
+        "Please select at least one skill to proceed",
+      );
       errorsObj.skillErr = true;
     } else {
-      skillsErrEle.innerText = "";
-      skillsFieldset.style.border = "1px solid #78C841";
+      setSuccess(skillsErrEle, skillsFieldset);
       errorsObj.skillErr = false;
     }
   });
@@ -136,13 +124,15 @@ jobRoleDropdown.addEventListener("change", (e) => {
     otherText.style.display = "block";
   } else {
     if (selectedOption !== "") {
-      jobRoleDropdown.style.border = "1px solid #78C841";
-      jobRoleErr.style.visibility = "hidden";
+      setSuccess(jobRoleErr, jobRoleDropdown);
+
       errorsObj.roleErr = false;
     } else {
-      jobRoleDropdown.style.border = "1px solid #FF4646";
-      jobRoleErr.innerText = "Please select role option";
-      jobRoleErr.style.visibility = "visible";
+      setError(
+        jobRoleErr,
+        jobRoleDropdown,
+        "Please select desired role option",
+      );
       errorsObj.roleErr = true;
     }
   }
@@ -155,13 +145,10 @@ otherJobRole.addEventListener("blur", (e) => {
   let otherErr = document.getElementById("otherRoleErr");
   console.log(text);
   if (!text) {
-    otherJobRole.style.border = "1px solid #FF4646";
-    otherErr.innerText = "Please enter the Role details";
-    otherErr.style.visibility = "visible";
+    setError(otherErr, otherJobRole, "Please enter the Role details");
     errorsObj.roleErr = true;
   } else {
-    otherJobRole.style.border = "1px solid #78C841";
-    otherErr.style.visibility = "hidden";
+    setSuccess(otherErr, otherJobRole);
     errorsObj.roleErr = false;
   }
 });
@@ -171,13 +158,11 @@ const dateInput = document.getElementById("dob");
 dateInput.addEventListener("blur", (e) => {
   let dateErr = document.getElementById("dobErr");
   if (e.target.checkValidity()) {
-    dateInput.style.border = "1px solid #78C841";
-    dateErr.style.visibility = "hidden";
+    setSuccess(dateErr, dateInput);
+
     errorsObj.dobErr = false;
   } else {
-    dateInput.style.border = "1px solid #FF4646";
-    dateErr.innerText = "Date of birth is required!";
-    dateErr.style.visibility = "visible";
+    setError(dateErr, dateInput, "Date of birth is required!");
     errorsObj.dobErr = true;
   }
 });
@@ -195,16 +180,19 @@ resumeFile.addEventListener("change", (e) => {
   }
 
   if (!allowedTypes.includes(fileUploaded.type)) {
-    resumeErr.innerText = "Only pdf and word files are allowed!";
-    resumeErr.style.visibility = "visible";
+    setError(resumeErr, resumeFile, "Only pdf and word files are allowed!");
     errorsObj.resumeErr = true;
     resumeFile.value = "";
   }
   if (fileUploaded.size > 1024 * 1024) {
-    resumeErr.innerText = "Maximum file size allowed is 1MB!";
-    resumeErr.style.visibility = "visible";
+    setError(resumeErr, resumeFile, "Maximum file size allowed is 1MB!");
     errorsObj.resumeErr = true;
     resumeFile.value = "";
+  }
+
+  if (!errorsObj.resumeErr) {
+    setSuccess(resumeErr, resumeFile);
+    errorsObj.resumeErr = false;
   }
 });
 
@@ -215,19 +203,18 @@ aboutUser.addEventListener("blur", (e) => {
   let aboutErr = document.getElementById("aboutUserErr");
 
   if (textEntered.length < 20) {
-    aboutErr.innerText = "Describe yourself in atleast 20 characters";
-    aboutErr.style.visibility = "visible";
-    aboutUser.style.border = "1px solid #FF4646";
+    setError(aboutErr, aboutUser, "Describe yourself in atleast 20 characters");
     errorsObj.aboutErr = true;
   } else if (textEntered.length <= 200) {
-    aboutErr.innerText = "";
-    aboutErr.style.visibility = "hidden";
-    aboutUser.style.border = "1px solid #78C841";
+    setSuccess(aboutErr, aboutUser);
     errorsObj.aboutErr = false;
   } else {
-    aboutErr.innerText = "Describe yourself in less than 200 characters";
-    aboutErr.style.visibility = "visible";
-    aboutUser.style.border = "1px solid #FF4646";
+    setError(
+      aboutErr,
+      aboutUser,
+      "Describe yourself in less than 200 characters",
+    );
+
     errorsObj.aboutErr = true;
   }
 });
@@ -251,15 +238,14 @@ password.addEventListener("input", (e) => {
   let regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,18}$/;
 
   if (regex.test(passwordEntered)) {
-    password.style.border = "1px solid #78C841";
+    setSuccess(passwordErrEle, password);
     errorsObj.pwErr = false;
-    passwordErrEle.innerText = "";
-    passwordErrEle.style.visibility = "hidden";
   } else {
-    passwordErrEle.innerText =
-      "Password must contain one capital letter, one digit and one special character and minimum length of 8";
-    passwordErrEle.style.visibility = "visible";
-    password.style.border = "1px solid #FF4646";
+    setError(
+      passwordErrEle,
+      password,
+      "Password must contain one capital letter, one digit and one special character and minimum length of 8",
+    );
     errorsObj.pwErr = true;
   }
 });
@@ -283,13 +269,10 @@ confirmPW.addEventListener("input", (e) => {
   let confirmPWErr = document.getElementById("confirmPWErr");
 
   if (confirmPwVal === passwordEntered) {
-    confirmPWErr.style.visibility = "hidden";
-    confirmPW.style.border = "1px solid #78C841";
+    setSuccess(confirmPWErr, confirmPW);
     errorsObj.confirmPwErr = false;
   } else {
-    confirmPWErr.innerText = "Both passwords must match!!!";
-    confirmPWErr.style.visibility = "visible";
-    confirmPW.style.border = "1px solid #FF4646";
+    setError(confirmPWErr, confirmPW, "Both passwords must match!!!");
     errorsObj.confirmPwErr = true;
   }
 });
