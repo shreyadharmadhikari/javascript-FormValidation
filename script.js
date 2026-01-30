@@ -1,24 +1,26 @@
 let errorsObj = {
-  fullNameErr: false,
-  emailErr: false,
-  genderErr: false,
-  skillErr: false,
-  roleErr: false,
-  dobErr: false,
-  resumeErr: false,
-  aboutErr: false,
-  pwErr: false,
-  confirmPwErr: false,
+  fullNameErr: true,
+  emailErr: true,
+  genderErr: true,
+  skillErr: true,
+  roleErr: true,
+  dobErr: true,
+  resumeErr: true,
+  aboutErr: true,
+  pwErr: true,
+  confirmPwErr: true,
 };
 
 const setError = (errorMsgEle, inputEle, msg) => {
   errorMsgEle.innerText = msg;
-  errorMsgEle.style.visibility = "visible";
-  inputEle.style.border = "1px solid #FF4646";
+  errorMsgEle.classList.add("error-visible");
+  inputEle.classList.add("error"); // for border shake
 };
 
 const setSuccess = (errorMsgEle, inputEle) => {
-  errorMsgEle.style.visibility = "hidden";
+  // errorMsgEle.style.visibility = "hidden";
+  errorMsgEle.classList.remove("error-visible");
+  inputEle.classList.remove("error");
   inputEle.style.border = "1px solid #78C841";
 };
 
@@ -32,7 +34,7 @@ fullNameInput.addEventListener("blur", (e) => {
     setError(errorMsgEle, fullNameInput, "Full name is required!");
     errorsObj.fullNameErr = true;
   } else {
-    if (regex.exec(inputVal) !== null) {
+    if (regex.test(inputVal)) {
       setSuccess(errorMsgEle, fullNameInput);
       errorsObj.fullNameErr = false;
     } else {
@@ -59,7 +61,7 @@ emailInput.addEventListener("blur", (e) => {
     setError(errorMsgEle, emailInput, "Email field is required!");
     errorsObj.emailErr = true;
   } else {
-    if (regex.exec(inputVal) !== null) {
+    if (regex.test(inputVal)) {
       setSuccess(errorMsgEle, emailInput);
       errorsObj.emailErr = false;
     } else {
@@ -159,7 +161,6 @@ dateInput.addEventListener("blur", (e) => {
   let dateErr = document.getElementById("dobErr");
   if (e.target.checkValidity()) {
     setSuccess(dateErr, dateInput);
-
     errorsObj.dobErr = false;
   } else {
     setError(dateErr, dateInput, "Date of birth is required!");
@@ -176,6 +177,7 @@ resumeFile.addEventListener("change", (e) => {
   let allowedTypes = ["application/pdf", "application/msword"];
 
   if (!fileUploaded) {
+    errorsObj.resumeErr = true;
     return;
   }
 
@@ -183,17 +185,17 @@ resumeFile.addEventListener("change", (e) => {
     setError(resumeErr, resumeFile, "Only pdf and word files are allowed!");
     errorsObj.resumeErr = true;
     resumeFile.value = "";
+    return;
   }
   if (fileUploaded.size > 1024 * 1024) {
     setError(resumeErr, resumeFile, "Maximum file size allowed is 1MB!");
     errorsObj.resumeErr = true;
     resumeFile.value = "";
+    return;
   }
 
-  if (!errorsObj.resumeErr) {
-    setSuccess(resumeErr, resumeFile);
-    errorsObj.resumeErr = false;
-  }
+  setSuccess(resumeErr, resumeFile);
+  errorsObj.resumeErr = false;
 });
 
 const aboutUser = document.getElementById("aboutUser");
@@ -214,8 +216,6 @@ aboutUser.addEventListener("blur", (e) => {
       aboutUser,
       "Describe yourself in less than 200 characters",
     );
-
-    errorsObj.aboutErr = true;
   }
 });
 
@@ -289,12 +289,13 @@ submitBtn.addEventListener("click", (e) => {
   for (let k in errorsObj) {
     if (errorsObj[k] === false) {
       counter += 1;
+      console.log(k, errorsObj[k]);
     }
   }
 
   console.log(counter);
 
   if (counter === errorLength) {
-    document.body.innerHTML = `<h1 style="text-align: center">Form submitted successfully</h1>`;
+    document.body.innerHTML = `<h1 style="text-align: center; top; 10%; color: green">Form submitted successfully</h1>`;
   }
 });
