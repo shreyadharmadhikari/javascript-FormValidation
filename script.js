@@ -253,10 +253,10 @@ const showPw = document.getElementById("showPw");
 showPw.addEventListener("click", (e) => {
   if (password.type === "password") {
     password.type = "text";
-    showPw.src = "hide_eye.png";
+    showPw.src = "assets/hide_eye.png";
   } else {
     password.type = "password";
-    showPw.src = "show_eye.png";
+    showPw.src = "assets/show_eye.png";
   }
 });
 
@@ -284,10 +284,10 @@ const showCPw = document.getElementById("showCPw");
 showCPw.addEventListener("click", (e) => {
   if (confirmPW.type === "password") {
     confirmPW.type = "text";
-    showCPw.src = "hide_eye.png";
+    showCPw.src = "assets/hide_eye.png";
   } else {
     confirmPW.type = "password";
-    showCPw.src = "show_eye.png";
+    showCPw.src = "assets/show_eye.png";
   }
 });
 
